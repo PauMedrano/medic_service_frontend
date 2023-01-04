@@ -1,0 +1,46 @@
+.oval_div_patient{
+    width: 90%;
+    height: 250px;
+    background: black;
+    text-align: center;
+    margin: 0px auto;
+    -moz-border-radius: 100px / 80px;
+    -webkit-border-radius: 100px / 90px;
+    border-radius: 100px / 80px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D5E4E6;
+}
+
+.oval_div_consult{
+    width: 90%;
+    height: 500px;
+    background: black;
+    text-align: center;
+    margin: 0px auto;
+    -moz-border-radius: 100px / 80px;
+    -webkit-border-radius: 100px / 90px;
+    border-radius: 100px / 80px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D5E4E6;
+}
+
+.oval_div_consult_dinamic{
+    width: 90%;
+    background: black;
+    text-align: center;
+    margin: 0px auto;
+    -moz-border-radius: 100px / 80px;
+    -webkit-border-radius: 100px / 90px;
+    border-radius: 100px / 80px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D5E4E6;
+}

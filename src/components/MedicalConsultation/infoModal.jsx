@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './modal.css'
 import AuthProvider from "../../context/AuthContext";
 import { useContext } from "react";
+import { useEffect } from 'react';
 
 const defaultFilterOptions = createFilterOptions();
 
@@ -26,6 +27,34 @@ export default function ConsultationInfoModal({ data }) {
     const filterOptions = (options, state) => {
         return defaultFilterOptions(options, state).slice(0, 5);
     };
+
+    useEffect(() => {
+        console.log(medicConsultation)
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Token " + authTokens['token']);
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        const url = 'http://127.0.0.1:8000/medical_supplys/';
+        fetch(url, requestOptions)
+            .then((response) => {
+                if (response.status !== 200) {
+                    toast.success('Sesion expirada');
+                    logoutUser();
+                } else {
+                    return response.json()
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                setTreatmentsSelect(data);
+                
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
 
     const medicConsultationHandler = (key, value) => {
         var data = { ...medicConsultation };
@@ -181,7 +210,7 @@ export default function ConsultationInfoModal({ data }) {
                         </Row>
                         {treatments.map((element, index) => {
                             return (<>
-                                <Row style={{
+                                <Row key = {index} style={{
                                     'text-align': 'left', 'justify-content': 'center',
                                     'align-items': 'center', marginTop: '1em', marginLeft: '1em', marginRight: '1em', marginBottom: '1em'
                                 }}>
@@ -192,7 +221,7 @@ export default function ConsultationInfoModal({ data }) {
                                             filterOptions={filterOptions}
                                             id="combo-box-demo"
                                             options={treatmentsSelect}
-                                            getOptionLabel={(option) => (option.name ? option.name : '')}
+                                            getOptionLabel={(option) => (option.name + " | " + option.lote ? option.name + " | " + option.lote : '')}
                                             sx={{ width: 300 }}
                                             onChange={(event, value) => { treatmentHandler(index, 'name', value) }}
                                             renderInput={(params) => <TextField value={element.name} variant="filled" {...params} label="Medicamento" />}

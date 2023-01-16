@@ -53,7 +53,7 @@ function MedicalRecord() {
 
     fetch("http://127.0.0.1:8000/medical_records/" + id + "/", requestOptions)
       .then(response => {
-        if (response.status !== 200) {
+        if (response.status !== 200 && response.status !== 204) {
           toast.success('Sesion expirada');
           logoutUser();
         } else {

@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { ListItemSecondaryAction } from '@mui/material';
 var stringSimilarity = require("string-similarity");
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -84,8 +85,18 @@ export default function DataTable({ rows, columns, name, setInfo, setPatient, de
       setResult([...rowsData]);
     }else{
 
-      const aux = rowsData.filter(item => stringSimilarity.compareTwoStrings(item.name !== undefined ? item.name + " " +item.last_name : item.names, searchValue) >= .40);
-      console.log(aux);
+      const aux = rowsData.filter(item => {
+        if(item.names == undefined)item.names = item.name + " " + item.last_name;
+
+          const names = item.names.split(" ");
+          var threshold = 0; 
+          for(const i in names){
+            threshold += stringSimilarity.compareTwoStrings(names[i], searchValue)
+          }
+          return threshold >= 0.3;
+
+        
+      });
       setResult([...aux]);
     }
   };
@@ -127,7 +138,7 @@ export default function DataTable({ rows, columns, name, setInfo, setPatient, de
               </Button>
             }
 
-            <Form.Control onChange={e => { setSearchValue(e.target.value) }} style={{ width: '50%', 'vertical-align': 'middle', marginLeft: '1em', marginRight: '1em' }} placeholder="Buscar" />
+            <Form.Control onChange={e => { setSearchValue(e.target.value) }} style={{ width: '50%', verticalAlign: 'middle', marginLeft: '1em', marginRight: '1em' }} placeholder="Buscar" />
             <Button variant="primary" onClick={() => {
               search_in_state()
             }

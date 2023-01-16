@@ -102,7 +102,8 @@ export default function SupplyInfoModal({ data }) {
 
             fetch("http://127.0.0.1:8000/medical_supplys/" + supply['id'] + '/', requestOptions)
                 .then(response => {
-                    if (response.status !== 200) {
+                    if (response.status !== 200 && response.status !== 304 && response.status !== 204) {
+                        console.log(response.status)
                         logoutUser();
                     } else {
                         return response.json();

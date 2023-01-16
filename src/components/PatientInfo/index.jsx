@@ -78,7 +78,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
 
                     fetch("http://127.0.0.1:8000/patients/", requestOptions)
                         .then(response => {
-                            if (response.status !== 200) {
+                            if (response.status !== 200 && response.status !== 201) {
                                 toast.success('Sesion expirada');
                                 logoutUser();
                             } else {
@@ -104,12 +104,14 @@ export default function PatientInfo({ has_search, data, done, set }) {
             if (Object.keys(dataState).length > 0 && dataState['id'] != undefined) sz += 1;
             if (Object.keys(dataState).length > 0 && dataState['medical_records'] != undefined) sz += 1;
             if (Object.keys(dataState).length > 0 && dataState['medical_consultation'] != undefined) sz += 1;
+            if (dataState.career === null)sz += 1;
             console.log(dataState)
             console.log(Object.keys(dataState).length, sz);
             if (Object.keys(dataState).length === sz && validate(dataState, patient_map) === true) {
                 const aux = dataState;
                 delete aux['medical_records'];
                 delete aux['medical_consultation'];
+                if (dataState['type'] !== 'Estudiante') delete aux['career']
                 var formdata = createFormData(aux);
                 //formdata.append('participant_id', "http://localhost:8000/patients/" + dataState['id'] + "/");
                 var myHeaders = new Headers();
@@ -123,7 +125,8 @@ export default function PatientInfo({ has_search, data, done, set }) {
 
                 fetch("http://localhost:8000/patients/" + dataState['id'] + "/", requestOptions)
                     .then(response => {
-                        if (response.status !== 200) {
+                        if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
+                            console.log(response.status)
                             toast.success('Sesion expirada');
                             logoutUser();
                         } else {
@@ -193,7 +196,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
                         style={
                             {
                                 width: '50%',
-                                'vertical-align': 'middle',
+                                verticalAlign: 'middle',
                                 marginLeft: '1em',
                                 marginRight: '1em'
                             }
@@ -311,7 +314,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
                                     >
                                         <MenuItem value={'Estudiante'}>Estudiante</MenuItem>
                                         <MenuItem value={'Profesor'}>Profesor</MenuItem>
-                                        <MenuItem value={'Trabajador'}>Trabajador</MenuItem>
+                                        <MenuItem value={'Externo'}>Externo</MenuItem>
                                         <MenuItem value={'PAEE'}>PAEE</MenuItem>
                                     </Select>
                                 </FormControl>

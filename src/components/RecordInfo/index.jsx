@@ -45,7 +45,7 @@ export default function RecordInfo({ title, id, data, done }) {
                     redirect: 'follow'
                 };
                 formdata = createFormData(dataState);
-                formdata.append('patient_id', 'http://127.0.0.1:8000/patients/' + id + '/');
+                formdata.append('patient_id', id );
 
                 requestOptions = {
                     method: 'POST',
@@ -56,7 +56,7 @@ export default function RecordInfo({ title, id, data, done }) {
 
                 fetch("http://127.0.0.1:8000/medical_records/", requestOptions)
                     .then(response => {
-                        if (response.status !== 200) {
+                        if (response.status !== 200 && response.status !== 201) {
                             logoutUser();
                         } else {
                             return response.text()

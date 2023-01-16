@@ -96,7 +96,7 @@ export default function Report() {
         <>
             {
                 data.map((value, index) => (
-                    <div className='oval_div_consult_dinamic' style={{ marginTop: '2em', width: '80%' }}>
+                    <div key = {index} className='oval_div_consult_dinamic' style={{ marginTop: '2em', width: '80%' }}>
                         <Container style={{ width: '100%' }}>
                             <h3>{value.title}</h3>
                             <Row style={{
@@ -105,7 +105,7 @@ export default function Report() {
                             }}>
                                 {
                                     value.table_values.map((row) => (
-                                        <Col sm={row.name === 'Observaciones' || row.name === 'Fecha de elaboración' ? 5 : 2}>
+                                        <Col id = {row.id} sm={row.name === 'Observaciones' || row.name === 'Fecha de elaboración' ? 5 : 2}>
                                             <h5>{row.name}</h5>
                                             {
                                                 row.labels.map((textfild) => (
@@ -113,7 +113,7 @@ export default function Report() {
                                                         required
                                                         style={{ width: '100%' }}
                                                         onChange={event => handler(index, textfild.index, event.target.value)}
-                                                        id="textfild_reports"
+                                                        key={textfild.index}
                                                         label={textfild.label}
                                                         value={value.values[textfild.index] || ''}
                                                         variant="filled"

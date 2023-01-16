@@ -106,7 +106,8 @@ export default function AddModal() {
 
                 fetch("http://127.0.0.1:8000/medical_supplys/", requestOptions)
                     .then(response => {
-                        if (response.status !== 200) {
+                        if (response.status !== 200 && response.status !== 201) {
+                            console.log("Test", response.status)
                             logoutUser();
                         } else {
                             return response.json();

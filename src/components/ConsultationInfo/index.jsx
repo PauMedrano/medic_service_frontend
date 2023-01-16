@@ -113,7 +113,7 @@ export default function ConsultationInfo({ title, data, id }) {
 
                 fetch("http://127.0.0.1:8000/medication_deliverys/", requestOptions)
                     .then(response => {
-                        if (response.status !== 200) {
+                        if (response.status !== 200 && response.status !== 201) {
                             toast.success('Sesion expirada');
                             logoutUser();
                         } else {
@@ -138,7 +138,7 @@ export default function ConsultationInfo({ title, data, id }) {
 
             fetch("http://127.0.0.1:8000/medical_consultations/", requestOptions)
                 .then(response => {
-                    if (response.status !== 200) {
+                    if (response.status !== 200 && response.status !== 201) {
                         toast.success('Sesion expirada');
                         logoutUser();
                     } else {
@@ -254,7 +254,7 @@ export default function ConsultationInfo({ title, data, id }) {
                                     </Row>
                                     {treatments.map((element, index) => {
                                         return (<>
-                                            <Row style={{
+                                            <Row key={index} style={{
                                                 'text-align': 'left', 'justify-content': 'center',
                                                 'align-items': 'center', marginTop: '1em', marginLeft: '1em', marginRight: '1em', marginBottom: '1em'
                                             }}>

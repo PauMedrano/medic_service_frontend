@@ -23,7 +23,7 @@ function Patients() {
       method: 'GET',
       headers: myHeaders,
     };
-    const url = 'http://127.0.0.1:8000/patients/';
+    const url = `${process.env.REACT_APP_URL_BACK}/patients/`;
     fetch(url, requestOptions)
       .then((response) => {
         if (response.status !== 200) {
@@ -49,8 +49,8 @@ function Patients() {
       headers: myHeaders,
       redirect: 'follow'
     };
-
-    fetch("http://127.0.0.1:8000/patients/" + id + "/", requestOptions)
+    console.log(process.env.REACT_APP_URL_BACK)
+    fetch(`${process.env.REACT_APP_URL_BACK}/patients/${id}/`, requestOptions)
       .then(response => {
         if (response.status !== 200 && response.status !== 204) {
           toast.success('Sesion expirada');
@@ -67,7 +67,7 @@ function Patients() {
       .catch(error => toast.error('Error al eliminar paciente'));
   }
   const handlePatientInfo = (data) => {
-    window.open("http://localhost:3000/patient/" + data['id'], "_self");
+    window.open(`${process.env.REACT_APP_URL_FRONT}/patient/${data['id']}`, "_self");
   }
 
   return (

@@ -76,7 +76,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
                         redirect: 'follow'
                     };
 
-                    fetch("http://127.0.0.1:8000/patients/", requestOptions)
+                    fetch(`${process.env.REACT_APP_URL_BACK}/patients/`, requestOptions)
                         .then(response => {
                             if (response.status !== 200 && response.status !== 201) {
                                 toast.success('Sesion expirada');
@@ -113,7 +113,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
                 delete aux['medical_consultation'];
                 if (dataState['type'] !== 'Estudiante') delete aux['career']
                 var formdata = createFormData(aux);
-                //formdata.append('participant_id', "http://localhost:8000/patients/" + dataState['id'] + "/");
+            
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization", "Token " + authTokens['token']);
                 var requestOptions = {
@@ -123,7 +123,7 @@ export default function PatientInfo({ has_search, data, done, set }) {
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:8000/patients/" + dataState['id'] + "/", requestOptions)
+                fetch(`${process.env.REACT_APP_URL_BACK}/patients/${dataState['id']}`, requestOptions)
                     .then(response => {
                         if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
                             console.log(response.status)
@@ -146,17 +146,16 @@ export default function PatientInfo({ has_search, data, done, set }) {
 
     const search = () => {
         setdataState({});
-        set({})
+        set({});
         if (searchValue !== '' && (searchValue.length === 10 || searchValue.length === 7)) {
             setSearched(true);
             var myHeaders = new Headers();
             myHeaders.append("Authorization", "Token " + authTokens['token']);
             var requestOptions = {
                 method: 'GET',
-                headers: myHeaders,
+                headers: myHeaders
             };
-            const url = 'http://127.0.0.1:8000/patients/?id_num=' + searchValue;
-            fetch(url, requestOptions)
+            fetch(`https://medicservice.pythonanywhere.com/patients/?id_num=${searchValue}`, requestOptions)
                 .then((response) => {
                     if (response.status !== 200) {
                         toast.success('Sesion expirada');

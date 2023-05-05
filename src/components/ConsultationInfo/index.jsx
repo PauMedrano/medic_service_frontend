@@ -53,7 +53,7 @@ export default function ConsultationInfo({ title, data, id }) {
             method: 'GET',
             headers: myHeaders,
         };
-        const url = 'http://127.0.0.1:8000/medical_supplys/';
+        const url = `${process.env.REACT_APP_URL_BACK}/medical_supplys/`
         fetch(url, requestOptions)
             .then((response) => {
                 if (response.status !== 200) {
@@ -98,8 +98,8 @@ export default function ConsultationInfo({ title, data, id }) {
             var treatmentMessage = 'Se entrego'
             treatments.forEach(element => {
                 formdata = new FormData();
-                formdata.append('patient_id', 'http://127.0.0.1:8000/patients/' + id + '/');
-                formdata.append('medical_supply_id', "http://localhost:8000/medical_supplys/" + element['id'] + "/");
+                formdata.append('patient_id', `${process.env.REACT_APP_URL_BACK}/patients/${id}/`);
+                formdata.append('medical_supply_id', `${process.env.REACT_APP_URL_BACK}/medical_supplys/${element['id']}/`);
                 formdata.append('amount_delivered', element['quantity']);
 
                 treatmentMessage += " " + element['quantity'] + " " + element['supply_unit'] + " de " + element['name'];
@@ -111,7 +111,7 @@ export default function ConsultationInfo({ title, data, id }) {
                     redirect: 'follow'
                 };
 
-                fetch("http://127.0.0.1:8000/medication_deliverys/", requestOptions)
+                fetch(`${process.env.REACT_APP_URL_BACK}/medication_deliverys/`, requestOptions)
                     .then(response => {
                         if (response.status !== 200 && response.status !== 201) {
                             toast.success('Sesion expirada');
@@ -136,7 +136,7 @@ export default function ConsultationInfo({ title, data, id }) {
                 redirect: 'follow'
             };
 
-            fetch("http://127.0.0.1:8000/medical_consultations/", requestOptions)
+            fetch(`${process.env.REACT_APP_URL_BACK}/medical_consultations/`, requestOptions)
                 .then(response => {
                     if (response.status !== 200 && response.status !== 201) {
                         toast.success('Sesion expirada');
@@ -147,7 +147,7 @@ export default function ConsultationInfo({ title, data, id }) {
                 })
                 .then(result => {
                     toast.success('Se guardo la consulta medica exitosamente');
-                    window.open("http://localhost:3000/patient/" + id, "_self");
+                    window.open(`${process.env.REACT_APP_URL_FRONT}/patient/${id}`, "_self");
                 })
                 .catch(error => toast.error('Error al guardar paciente'));
         } else {

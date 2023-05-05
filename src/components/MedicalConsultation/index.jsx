@@ -22,7 +22,7 @@ function MedicalConsultation() {
       method: 'GET',
       headers: myHeaders,
     };
-    const url = 'http://127.0.0.1:8000/medical_consultations/';
+    const url = `${process.env.REACT_APP_URL_BACK}/medical_consultations/`;
     fetch(url, requestOptions)
       .then((response) => {
         if (response.status !== 200) {
@@ -51,7 +51,7 @@ function MedicalConsultation() {
       redirect: 'follow'
     };
 
-    fetch("http://127.0.0.1:8000/medical_consultations/" + id + "/", requestOptions)
+    fetch(`${process.env.REACT_APP_URL_BACK}/medical_consultations/${id}/`, requestOptions)
       .then(response => {
         if (response.status !== 200 && response.status !== 204) {
           toast.success('Sesion expirada');

@@ -39,7 +39,7 @@ export default function InfoModal({ data }) {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8000/medical_records/" + medicRecord['id'] + "/", requestOptions)
+        fetch(`${process.env.REACT_APP_URL_BACK}/medical_records/${medicRecord['id']}/` , requestOptions)
             .then(response => {
                 if (response.status !== 200) {
                     toast.success('Sesion expirada');
@@ -50,7 +50,7 @@ export default function InfoModal({ data }) {
             })
             .then(result => {
                 toast.success('Se guardo la consulta medica exitosamente');
-                window.open("http://localhost:3000/medical-records/", "_self");
+                window.open(`${process.env.REACT_APP_URL_FRONT}/medical-records/`, "_self");
             })
             .catch(error => toast.error('Error al guardar paciente'));
     }

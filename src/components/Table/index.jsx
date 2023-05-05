@@ -176,7 +176,7 @@ export default function DataTable({ rows, columns, name, setInfo, setPatient, de
                               <Button
                                 variant="light"
                                 style={{ width: '100%', height: '50px', background: '#abb1ba' }}
-                                onClick={() => window.open("http://localhost:3000/patient/" + row['patient_id'], "_self")}
+                                onClick={() => window.open(`${process.env.REACT_APP_URL_FRONT}/patient/${row['patient_id']}` , "_self")}
                               >
                                 {value}
                               </Button> :

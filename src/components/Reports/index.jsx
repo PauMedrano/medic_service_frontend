@@ -69,7 +69,7 @@ export default function Report() {
                 redirect: 'follow'
             };
     
-            fetch("http://127.0.0.1:8000/report/", requestOptions)
+            fetch(`${process.env.REACT_APP_URL_BACK}/report/`, requestOptions)
                 .then((response) => {
                     if (response.status !== 200) {
                         logoutUser();

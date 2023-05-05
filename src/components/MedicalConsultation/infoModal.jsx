@@ -36,7 +36,7 @@ export default function ConsultationInfoModal({ data }) {
             method: 'GET',
             headers: myHeaders,
         };
-        const url = 'http://127.0.0.1:8000/medical_supplys/';
+        const url = `${process.env.REACT_APP_URL_BACK}/medical_supplys/`;
         fetch(url, requestOptions)
             .then((response) => {
                 if (response.status !== 200) {
@@ -99,7 +99,7 @@ export default function ConsultationInfoModal({ data }) {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8000/medical_consultations/" + medicConsultation['id'] + "/", requestOptions)
+        fetch(`${process.env.REACT_APP_URL_BACK}/medical_consultations/${medicConsultation['id']}/`, requestOptions)
             .then(response => {
                 if (response.status !== 200) {
                     toast.success('Sesion expirada');
@@ -110,7 +110,7 @@ export default function ConsultationInfoModal({ data }) {
             })
             .then(result => {
                 toast.success('Se guardo la consulta medica exitosamente');
-                window.open("http://localhost:3000/medic-consultations/", "_self");
+                window.open(`${process.env.REACT_APP_URL_FRONT}/consultations/`, "_self");
             })
             .catch(error => toast.error('Error al guardar paciente'));
     }

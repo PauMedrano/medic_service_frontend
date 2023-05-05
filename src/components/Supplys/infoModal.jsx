@@ -32,7 +32,7 @@ export default function SupplyInfoModal({ data }) {
             method: 'GET',
             headers: myHeaders,
         };
-        const url = 'http://127.0.0.1:8000/medical_supplys/';
+        const url = `${process.env.REACT_APP_URL_BACK}/medical_supplys/`;
         fetch(url, requestOptions)
             .then((response, requestOptions) => {
                 if (response.status !== 200) {
@@ -100,7 +100,7 @@ export default function SupplyInfoModal({ data }) {
                 redirect: 'follow'
             };
 
-            fetch("http://127.0.0.1:8000/medical_supplys/" + supply['id'] + '/', requestOptions)
+            fetch(`${process.env.REACT_APP_URL_BACK}/medical_supplys/${supply['id']}/`, requestOptions)
                 .then(response => {
                     if (response.status !== 200 && response.status !== 304 && response.status !== 204) {
                         console.log(response.status)
@@ -111,7 +111,7 @@ export default function SupplyInfoModal({ data }) {
                 }
                 ).then(result => {
                     toast.success('Se guardo el paciente exitosamente');
-                    window.open("http://localhost:3000/supplys/", "_self");
+                    window.open(`${process.env.REACT_APP_URL_FRONT}/supplys/`, "_self");
                 })
                 .catch(error => toast.error('Error al guardar paciente'));
         }

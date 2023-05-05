@@ -32,7 +32,7 @@ export default function AddModal() {
             method: 'GET',
             headers: myHeaders,
         };
-        const url = 'http://127.0.0.1:8000/medical_supplys/';
+        const url = `${process.env.REACT_APP_URL_BACK}/medical_supplys/`;
         fetch(url, requestOptions)
             .then((response) => {
                 if (response.status !== 200) {
@@ -104,7 +104,7 @@ export default function AddModal() {
                     redirect: 'follow'
                 };
 
-                fetch("http://127.0.0.1:8000/medical_supplys/", requestOptions)
+                fetch(`${process.env.REACT_APP_URL_BACK}/medical_supplys/`, requestOptions)
                     .then(response => {
                         if (response.status !== 200 && response.status !== 201) {
                             console.log("Test", response.status)
@@ -115,7 +115,7 @@ export default function AddModal() {
                     }
                     ).then(result => {
                         toast.success('Se guardo el paciente exitosamente');
-                        window.open("http://localhost:3000/supplys/", "_self");
+                        window.open(`${process.env.REACT_APP_URL_FRONT}/supplys/`, "_self");
                         setSupply({})
                     })
                     .catch(error => toast.error('Error al guardar paciente'));

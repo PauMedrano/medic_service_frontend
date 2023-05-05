@@ -54,7 +54,7 @@ export default function RecordInfo({ title, id, data, done }) {
                     redirect: 'follow'
                 };
 
-                fetch("http://127.0.0.1:8000/medical_records/", requestOptions)
+                fetch(`${process.env.REACT_APP_URL_BACK}/medical_records/`, requestOptions)
                     .then(response => {
                         if (response.status !== 200 && response.status !== 201) {
                             logoutUser();

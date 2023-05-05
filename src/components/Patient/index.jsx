@@ -34,7 +34,7 @@ function Patient({ setallInfo }) {
             method: 'GET',
             headers: myHeaders,
         };
-        const url = "http://127.0.0.1:8000/patients/?id=" + id;
+        const url = `${process.env.REACT_APP_URL_BACK}/patients/?id=${id}`;
         fetch(url, requestOptions)
             .then((response) => {
                 if (response.status !== 200 ) {
@@ -68,7 +68,7 @@ function Patient({ setallInfo }) {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/medical_consultations/" + id + "/", requestOptions)
+        fetch(`${process.env.REACT_APP_URL_BACK}/medical_consultations/${id}/`, requestOptions)
             .then(response => {
                 if (response.status !== 200 && response.status !== 204) {
                     toast.success('Sesion expirada');
@@ -96,7 +96,7 @@ function Patient({ setallInfo }) {
             redirect: 'follow'
         };
 
-        fetch("http://127.0.0.1:8000/medical_records/" + id + "/", requestOptions)
+        fetch(`${process.env.REACT_APP_URL_BACK}/medical_records/${id}/`, requestOptions)
             .then(response => {
                 if (response.status !== 200 && response.status !== 204) {
                     toast.success('Sesion expirada');
